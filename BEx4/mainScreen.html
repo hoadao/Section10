@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quan li san pham</title>
+</head>
+<body>
+<h1 style="text-align: center">Quản lí sản phẩm </h1>
+<div id="result" style="text-align: center"></div>
+<button onclick="hoa.add();hoa.show()">Thêm </button>
+<input id="add"><br/>
+<button onclick="hoa.del();hoa.show()">Xóa </button>
+<input id="delete"><br/>
+<button onclick="hoa.update();hoa.show()">Sửa </button>
+<input id="update">
+<input id="updateTo">
+<script>
+    class Product{
+        constructor(name){
+            this.name=name;
+        }
+        getName(){
+            return this.name;
+        }
+        setName(newName){
+            this.name=newName;
+        }
+    }
+    class ProductManager{
+        constructor(arr){
+            this.arr=arr;
+        }
+        add(){
+            var temp = document.getElementById("add").value;
+            this.arr[this.arr.length]=new Product(temp);
+        }
+        del(){
+            var spXoa = document.getElementById("delete").value;
+            for(var i=0;i<this.arr.length;i++){
+                if(this.arr[i].getName()===spXoa){
+                    this.arr.splice(i,1);
+                }
+            }
+        }
+        update(){
+            var spCu = document.getElementById("update").value;
+            var spMoi = document.getElementById("updateTo").value;
+            for(var i=0;i<this.arr.length;i++) {
+                if (this.arr[i].getName() === spCu) {
+                    this.arr[i].setName(spMoi);
+                }
+            }
+        }
+        show(){
+            var data='<table align="center" border="1" width="600px">';
+            data+='<tr>' +
+                '<td>Số thứ tự</td>' +
+                '<td style="text-align: center">Tên</td>' +
+                '</tr>';
+            for(var i=0;i<this.arr.length;i++){
+                data+='<tr>' +
+                    '<td style="text-align: center">'+(i+1)+ '</td>' +
+                    '<td>'+this.arr[i].getName()+'</td>' +
+                    '</tr>';
+            }
+            data+='</table>';
+            document.getElementById("result").innerHTML=data;
+        }
+    }
+    var arr=[];
+    var hoa = new ProductManager(arr);
+    var p1 = new Product("Nokia");
+    var p2 = new Product("Samsung");
+    hoa.arr.push(p1);
+    hoa.arr.push(p2);
+    hoa.show();
+</script>
+</body>
+</html>

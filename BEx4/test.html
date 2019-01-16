@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quan li san pham</title>
+</head>
+<body>
+
+<script>
+    class Product{
+        constructor(name){
+            this.name=name;
+        }
+        getName(){
+            return this.name;
+        }
+        setName(newName){
+            this.name=newName;
+        }
+    }
+
+    var p1 = new Product("Iphone");
+    var p2 = new Product("Samsung");
+    var p3 = new Product("Xiaomi");
+    var arr = [];
+    arr.push(p1);
+    arr.push(p2);
+    arr.push(p3);
+    function showAll(arr) {
+        document.write('<h1 style="text-align: center">Quản lí sản phẩm </h1>');
+        document.write('<table border = "1" align="center">');
+        document.write('<tr>\n' +
+            '<td>Số thứ tự</td>\n' +
+            '<td style="text-align: center">Tên</td>\n' +
+            '</tr>');
+        for(var i=0;i<arr.length;i++){
+            document.write('<tr>\n' +
+                '<td style="text-align: center">'+(i+1)+ '</td>\n' +
+                '<td>'+arr[i].getName()+'</td>\n' +
+                '</tr>');
+        }
+        document.write('</table>');
+
+    }
+    function showButtons() {
+        document.write('<button onclick="add()">Thêm </button>\n' +
+            '    <input class="text" id="add"></br>\n' +
+            '    <button onclick="del()">Xóa </button>\n' +
+            '    <input class="text" id="delete"><br/>\n' +
+            '    <button onclick="update()">Sửa </button>\n' +
+            '    <input class="text" id="update" value="Sản phẩm cần sửa">\n' +
+            '    <input class="text" id="updateTo" value="Sửa thành"><br/>');
+    }
+    showAll(arr);
+    showButtons();
+    function add() {
+        var spThem= document.getElementById("add").value;
+        var p= new Product(spThem);
+        arr.push(p);
+        showAll(arr);
+        showButtons();
+    }
+    function del() {
+        var spXoa = document.getElementById("delete").value;
+        for(var i=0;i<arr.length;i++){
+            if(arr[i].getName()===spXoa){
+                arr.splice(i,1);
+            }
+        }
+        showAll(arr);
+        showButtons();
+    }
+    function update() {
+        var spCu = document.getElementById("update").value;
+        var spMoi = document.getElementById("updateTo").value;
+        for(var i=0;i<arr.length;i++) {
+            if (arr[i].getName() === spCu) {
+                arr[i].setName(spMoi);
+            }
+        }
+
+        showAll();
+        showButtons();
+    }
+
+</script>
+</body>
+</html>
